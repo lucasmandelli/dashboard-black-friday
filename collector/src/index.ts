@@ -33,9 +33,10 @@ async function main(): Promise<void> {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  // Secret key (sb_secret_…); a antiga service_role key continua aceita.
+  const serviceKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!supabaseUrl || !serviceKey) {
-    throw new Error('Defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY')
+    throw new Error('Defina SUPABASE_URL e SUPABASE_SECRET_KEY')
   }
   const db = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
 

@@ -51,7 +51,12 @@ npm run collect -- --dry-run --url "https://www.kabum.com.br/produto/..."
 3. Em **Authentication → URL Configuration**:
    - **Site URL:** `https://<seu-usuario>.github.io/dashboard-black-friday/`
    - **Redirect URLs:** a mesma URL, mais `http://localhost:5173/` para desenvolvimento.
-4. Em **Project Settings → API**, anote a **Project URL**, a chave **anon** e a chave **service_role**.
+4. Anote três valores:
+   - **Project URL:** clique em **Connect**, no topo do painel, ou vá em **Settings → Data API**. O formato é `https://xxxx.supabase.co`.
+   - **Publishable key** (`sb_publishable_...`): em **Settings → API Keys**, aba **API Keys**. Se não houver nenhuma, clique em criar. Essa chave vai no site.
+   - **Secret key** (`sb_secret_...`): na mesma tela, em **Secret keys**, crie uma chave (por exemplo com o nome `coletor`) e copie o valor na hora, porque ele só aparece completo uma vez. Essa chave é do coletor.
+
+   > Se o seu projeto só mostrar as chaves `anon` e `service_role` (aba **Legacy API Keys**), elas também funcionam, no lugar da publishable e da secret. O Supabase vai desativá-las até o fim de 2026, então prefira as novas.
 
 ### 2. GitHub
 Em **Settings → Secrets and variables → Actions**:
@@ -59,9 +64,11 @@ Em **Settings → Secrets and variables → Actions**:
 | Tipo | Nome | Valor |
 |---|---|---|
 | Secret | `SUPABASE_URL` | Project URL |
-| Secret | `SUPABASE_SERVICE_ROLE_KEY` | chave service_role (**nunca** coloque no frontend) |
+| Secret | `SUPABASE_SECRET_KEY` | Secret key (**nunca** coloque no frontend) |
 | Variable | `VITE_SUPABASE_URL` | Project URL |
-| Variable | `VITE_SUPABASE_ANON_KEY` | chave anon (pode ser pública, porque quem protege os dados é o RLS) |
+| Variable | `VITE_SUPABASE_PUBLISHABLE_KEY` | Publishable key (pode ser pública, porque quem protege os dados é o RLS) |
+
+> Se você já cadastrou com os nomes antigos (`SUPABASE_SERVICE_ROLE_KEY` e `VITE_SUPABASE_ANON_KEY`), não precisa mudar nada: eles continuam funcionando.
 
 Depois:
 1. Em **Settings → Pages**, escolha **Source: GitHub Actions**.
