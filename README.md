@@ -52,7 +52,7 @@ npm run collect -- --dry-run --url "https://www.kabum.com.br/produto/..."
    - **Site URL:** `https://<seu-usuario>.github.io/dashboard-black-friday/`
    - **Redirect URLs:** a mesma URL, mais `http://localhost:5173/` para desenvolvimento.
 4. Anote três valores:
-   - **Project URL:** clique em **Connect**, no topo do painel, ou vá em **Settings → Data API**. O formato é `https://xxxx.supabase.co`.
+   - **Project URL:** clique em **Connect**, no topo do painel, ou vá em **Settings → Data API**. O formato é `https://xxxx.supabase.co`, só isso, sem `/rest/v1` no final.
    - **Publishable key** (`sb_publishable_...`): em **Settings → API Keys**, aba **API Keys**. Se não houver nenhuma, clique em criar. Essa chave vai no site.
    - **Secret key** (`sb_secret_...`): na mesma tela, em **Secret keys**, crie uma chave (por exemplo com o nome `coletor`) e copie o valor na hora, porque ele só aparece completo uma vez. Essa chave é do coletor.
 

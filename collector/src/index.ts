@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { normalizeSupabaseUrl } from '../../shared/supabase-url.js'
 import { parseArgs } from 'node:util'
 import { extractPrice } from './extract/index.js'
 import { fetchHtml, fetchJson, sleep } from './http.js'
@@ -38,7 +39,7 @@ async function main(): Promise<void> {
   if (!supabaseUrl || !serviceKey) {
     throw new Error('Defina SUPABASE_URL e SUPABASE_SECRET_KEY')
   }
-  const db = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
+  const db = createClient(normalizeSupabaseUrl(supabaseUrl), serviceKey, { auth: { persistSession: false } })
 
   const { data: links, error } = await db.from('product_links').select('id, url')
   if (error) throw error

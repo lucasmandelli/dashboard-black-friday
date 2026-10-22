@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it, vi } from 'vitest'
 import { storeFromUrl } from '../../shared/stores.js'
+import { normalizeSupabaseUrl } from '../../shared/supabase-url.js'
 import { extractFromHtml, extractPrice } from '../src/extract/index.js'
 import { mercadoLivreItemId } from '../src/extract/mercadolivre.js'
 import { parsePrice } from '../src/price.js'
@@ -100,5 +101,16 @@ describe('storeFromUrl', () => {
     ['não é url', 'Desconhecida'],
   ])('%s → %s', (url, store) => {
     expect(storeFromUrl(url)).toBe(store)
+  })
+})
+
+describe('normalizeSupabaseUrl', () => {
+  it.each([
+    ['https://abc.supabase.co', 'https://abc.supabase.co'],
+    ['https://abc.supabase.co/', 'https://abc.supabase.co'],
+    ['https://abc.supabase.co/rest/v1/', 'https://abc.supabase.co'],
+    ['  https://abc.supabase.co/rest/v1  ', 'https://abc.supabase.co'],
+  ])('%s → %s', (input, expected) => {
+    expect(normalizeSupabaseUrl(input)).toBe(expected)
   })
 })
